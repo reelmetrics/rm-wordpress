@@ -10,7 +10,7 @@ build:
 
 push:
 	# Login to ECR using AWS CLI v2 (The 'aws ecr get-login-password' command gets the auth token)
-	aws ecr get-login-password --region your-region | buildah login --username AWS --password-stdin $(ECR_REPO)
+	aws ecr get-login-password --region us-west-2 | buildah login --username AWS --password-stdin $(ECR_REPO)
 	buildah push $(ECR_REPO):$(TAG)
 
 deploy-all: deploy-dev deploy-prod
@@ -24,3 +24,4 @@ deploy-prod:
 	# Example: kubectl set image deployment/your-deployment-name wordpress-container=$(ECR_REPO):$(TAG) --namespace your-prod-namespace
 
 # Example usage: make build push deploy-all
+
