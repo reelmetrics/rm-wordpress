@@ -17,7 +17,7 @@ deploy-all: deploy-dev deploy-prod
 
 deploy-dev:
 	# Command to update your Kubernetes deployment in dev
-	# Example: kubectl set image deployment/your-deployment-name wordpress-container=$(ECR_REPO):$(TAG) --namespace your-dev-namespace
+	kubectl set image deployment/wordpress_2nd.yaml wordpress-container=$(ECR_REPO):$(TAG) --namespace wordpress
 
 deploy-prod:
 	# Command to update your Kubernetes deployment in prod
