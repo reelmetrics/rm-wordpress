@@ -1,0 +1,242 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f6f6f6;
+    color: #333;
+}
+
+.reel-game-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+h2.reel-game-title {
+    color: #b91c1a;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #555;
+    font-size: 1.4em;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li {
+    padding: 8px 0;
+}
+
+strong {
+    font-weight: 600;
+    color: #222;
+}
+
+.main-flex-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.game-info {
+    flex: 2;
+    padding-right: 40px;
+    border-right: 1px solid #e5e5e5;
+}
+
+.metrics-flex-container {
+    flex: 3;
+    display: flex;
+    gap: 20px;
+}
+
+.metric-box {
+    flex: 1;
+}
+
+.metric-number {
+    font-size: 2.4em;
+    color: #b91c1a;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+/* New styles for the second container */
+.reel-game-container + .reel-game-container {
+    margin-top: 40px; /* adds a gap between the top and second container */
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between; /* spreads the two boxes apart */
+    gap: 30px;
+}
+
+.flex-box {
+    flex: 1;  /* ensures equal width for both boxes */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.flex-box h3 {
+    margin-top: 0; /* removes the top margin for better alignment */
+}
+
+/* Lifecycle Analysis */
+.table-container {
+    overflow-x: auto;  /* Allows for horizontal scrolling if the table exceeds container width */
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px 15px;
+    border: 1px solid #e5e5e5;
+    text-align: left;
+}
+
+thead {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f6f6f6;  /* Zebra striping for better readability */
+}
+
+/* Container for the three charts */
+.chart-container {
+    display: flex;
+    justify-content: space-between; /* Distribute the chart boxes evenly */
+    gap: 30px; /* Spacing between the chart boxes */
+}
+
+.chart-box {
+    flex: 1; /* Make sure each box takes up an equal amount of space */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Container for the three charts */
+.vertical-chart-container {
+    display: flex;
+    flex-direction: column; /* Stack charts vertically */
+    gap: 20px; /* Spacing between the chart boxes */
+}
+
+.vertical-chart-box {
+    padding: 20px;
+    margin: 20px 0; 
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* New color scheme for the charts */
+.dx-chart {
+    color: #b91c1a; /* Main color */
+}
+
+.dx-chart-title {
+    fill: #555; /* Subtle text color for chart titles */
+}
+
+.dx-legend-item-text {
+    fill: #555; /* Subtle text color for legend items */
+}
+
+.dx-legend {
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dx-tooltip {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    color: #333;
+}
+
+.card-header {
+    position: relative;
+}
+
+.chevron-button:hover {
+    background-color: #323232;
+    color: #fff;
+}
+
+.chevron .fas {
+    transition: transform 0.3s ease;
+}
+
+.chevron i {
+    transition: transform 0.3s ease;
+}
+
+/* Override Bootstrap primary color */
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: #b91c1a !important;
+    border-color: #b91c1a !important;
+}
+
+/* Override Bootstrap link color */
+a {
+    color: #b91c1a;
+}
+
+a:hover, a:focus {
+    color: #9a1715; /* slightly darker shade for hover and focus */
+}
+
+/* Override Bootstrap .btn-link color */
+.btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+    color: #b91c1a !important;
+}
+
+/* Override Bootstrap focus styles */
+.btn-link:focus, .btn-link:active {
+    box-shadow: none !important; /* Remove focus ring */
+    color: #b91c1a !important; /* Force color to mainColor even on focus/active */
+    outline: none !important; /* Ensure no default browser outline appears */
+    border-color: transparent !important; /* Remove any border */
+}
+
+.chevron-button:focus .chevron i {
+    color: #b91c1a !important;
+}
+
+/* If the button has a pink background on focus/active, this will override it */
+.btn-link:focus, .btn-link:active {
+    background-color: transparent !important;
+}
+
+
