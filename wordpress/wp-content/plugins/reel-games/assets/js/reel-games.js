@@ -4,9 +4,10 @@ jQuery(document).ready(function($) {
     // Color Palette
     const mainColor = '#b91c1a';
     const darkBlueColor = '#192f3d';
-    const goldColor = '#d4af37';
     const lightBlueColor = '#00bfff';
-    const lightGreyColor = '#d3d3d3';
+    const darkGreyColor = '#323232';
+    const greenColor = '#17A398';
+    const orangeColor = '#F57C00';
 
     const chartHeight = 250;
 
@@ -40,8 +41,8 @@ jQuery(document).ready(function($) {
                 },
                 series: [
                     { valueField: 'gptwRpm', name: 'GPTW RPM', color: mainColor },
-                    { valueField: 'floorAverage', name: 'Floor Average', color: lightGreyColor, point: { visible: false }, hoverMode: 'none',  },
-                    { valueField: 'theoWin', name: 'Theo Win', color: goldColor },
+                    { valueField: 'floorAverage', name: 'Floor Average', color: darkGreyColor, point: { visible: false }, hoverMode: 'none',  },
+                    { valueField: 'theoWin', name: 'Theo Win', color: orangeColor },
                     { valueField: 'gamesPlayed', name: 'Games Played', color: lightBlueColor }
                 ],
                 argumentAxis: {
@@ -92,7 +93,7 @@ jQuery(document).ready(function($) {
             },
             series: [
                 { valueField: 'terminals', name: 'Terminals', color: mainColor },
-                { valueField: 'venues', name: 'Venues', color: goldColor },
+                { valueField: 'venues', name: 'Venues', color: orangeColor },
                 { valueField: 'games', name: 'Games', color: lightBlueColor }
             ],
             argumentAxis: {
@@ -131,7 +132,7 @@ jQuery(document).ready(function($) {
             },
             series: [
                 { valueField: 'gp_rpm', name: 'GP RPM', color: mainColor },
-                { valueField: 'tw_rpm', name: 'TW RPM', color: goldColor },
+                { valueField: 'tw_rpm', name: 'TW RPM', color: orangeColor },
                 { valueField: 'gptw_rpm', name: 'GPTW RPM', color: lightBlueColor }
             ],
             argumentAxis: {
@@ -523,7 +524,7 @@ jQuery(document).ready(function($) {
                 valueField: 'marketShare',
                 name: 'Market Share',
                 type: 'bar',
-                color: goldColor, // Use the gold color
+                color: orangeColor, // Use the gold color
             },
             legend: {
                 position: "outside",

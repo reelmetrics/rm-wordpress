@@ -15,7 +15,7 @@ include plugin_dir_path(__FILE__) . 'includes/shortcodes.php';
 // Enqueue necessary styles and scripts
 function enqueue_reel_games_assets() {
     // Enqueue jQuery if not already done
-    wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.5.1.min.js', array(), '3.5.1', false);
+    wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.7.1.min.js', array(), '3.7.1', false);
 
         // Enqueue Bootstrap
         wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css', array(), '4.6.2');
