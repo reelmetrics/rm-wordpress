@@ -1,8 +1,14 @@
+.reel-game-page-container {
+    background-color: #F6F7F8;
+    margin: 0;
+    border: 0;
+    padding: 30px;
+}
+
 body {
     font-family: Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
-    background-color: #f6f6f6;
     color: #333;
 }
 
@@ -10,20 +16,30 @@ body {
     margin: 15% 0 2% 0 !important;
 }
 
-.reel-game-container {
-    max-width: 80%;
-    margin: 20px auto;
-    padding: 10px 16px;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+.main-flex-container {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0 10px 0;
+    padding-left: 1%;
+}
+
+.game-info {
+    flex: 6;
+    padding: 0;
+}
+
+.metrics-flex-container {
+    flex: 5;
+    display: flex;
+    gap: 15px;
+    text-align: left;
 }
 
 h1.reel-game-title {
     color: #b91c1a;
     font-size: 1.5em;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin: 0 0 24px 0;
 }
 
 h3 {
@@ -49,56 +65,150 @@ strong {
     color: #222;
 }
 
-.main-flex-container {
-    display: flex;
-    gap: 16px;
-    margin: 16px 0 10px 0;
-    padding-left: 1%;
-}
-
-.game-info {
-    flex: 2;
-    border-right: 1px solid #e5e5e5;
-    /* border: 2px solid red; */
+.popup-card-title  {
+    color: #b91c1a;
+    font-size: 1.2em;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
     padding: 0;
+    margin: 0  0 20px 0;
+}
+#terminalsBarChart, #marketShareBarChart, #venuesBarChart {
+    padding-top: 1%;
+}
+.locked-card-header {
+    display: flex;  
+    justify-content: space-between; 
+    align-items: center; 
+}
+.lock-icon {
+    color: #949595;
 }
 
-.metrics-flex-container {
-    flex: 3;
-    display: flex;
-    gap: 15px;
-    text-align: center;
+.locked-card-title-small-box {
+    flex: 0 0 80%;
+    color: #b91d1a83;    
+    font-size: 1.2em;
+    font-weight: 500;
+    border-bottom: 1px solid #ddd;
+    padding: 0;
+    margin: 0  0 20px 0;
+}
+
+.locked-card-title {
+    flex: 0 0 80%;
+    color: #b91d1a83;    
+    font-size: 1.2em;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+}
+
+.locked-card-button a {
+    display: inline-block;
+    opacity: 1 !important; 
+    /* Add button styling here */
+    text-decoration: none; 
+    /* Add padding, background, color, etc., to style it as a button */
 }
 
 .metric-box {
     flex: 1;
+    border-left: 1px solid #e5e5e5;
+    padding-left: 2%;
 }
 
-.metric-box h4 {
+.metric-box h6 {
     margin: 0 3px 0 0;
+    text-align: center;
 }
 
 .metric-number {
     font-size: 2em;
-    color: #b91c1a;
-    margin: 0;
-    font-weight: bold;
+    color: #323232;
+    margin: 2px 2px 12px 2px;
+    text-align: center;
 }
 
-/* New styles for the second container */
-.reel-game-container + .reel-game-container {
-    margin-top: 40px; 
+.metric-table-cell {
+    border: 0;
+    padding: 0 2%;
+    background-color: #fff !important;
 }
 
-.reel-game-container,
+.metric-cell-value {
+    text-align: right;
+}
+
+.metrics-flex-container table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px auto !important;
+    /* border: 2px solid purple; */
+}
+
+.blue-btn {
+    background-color: #ffffff00;
+    color: #1976D2;
+    border: 1px solid #1976D2;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+}
+.blue-btn:hover {
+    background-color: #0056b3;
+    color:#ddd;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+}
+
+.orange-btn {
+    background-color: #ffffff00;
+    color: #F57C00;
+    border: 1px solid #F57C00;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+}
+.orange-btn:hover {
+    background-color: #FF8C00;
+    color:#ddd;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+}
+
+
 .performance-profile-container,
-.vertical-chart-container {
+.vertical-chart-container,
+.reel-locked-container,
+.reel-game-container {
     max-width: 85%;
-    margin: 20px auto;
+    margin: 2% auto;
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+
+.reel-game-container,
+.reel-locked-container {
+    padding: 10px 16px;
+}
+
+.reel-locked-container, 
+.chart-box-locked {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+
+.popUpBox {
+    max-width: 85%;
+    margin: 10px auto;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+
 
 .flex-container {
     display: flex;
@@ -133,17 +243,49 @@ strong {
 /* Container for the three charts */
 .chart-container {
     display: flex;
-    justify-content: space-between; 
-    gap: 30px;
+    justify-content: column; 
+    gap: 20px;
+    background-color: #F6F7F8;
 }
 
 .chart-box {
-    flex: 1; /* Make sure each box takes up an equal amount of space */
+    flex: 1; 
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #fefefe;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    max-height: 320px;
+    overflow: hidden;
+}
+
+.popup-card-body .backdrop-image {
+    display: flex;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-items: center !important;
+    justify-content: center !important;
+    height:  /* max height of the card */ 220px;
+    margin-top: 20px;
+}
+
+.center-btn {
+    padding: 10px 20px;
+    background-color: rgba(255,255,255,0.7) !important;
+    cursor: pointer;
+    outline: none;
+}
+
+.center-btn:hover {
+    background-color: #b91c1a !important;
+    border: 2px solid #b91c1a !important; 
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+}
+
+.backdrop-image button {
+    z-index: 10;
 }
 
 /* Container for the three charts */
@@ -151,15 +293,14 @@ strong {
     display: flex;
     flex-direction: column; 
     gap: 20px; 
+    border: none;
+    box-shadow: none;
 }
 
 .vertical-chart-box {
     padding: 20px;
     margin: 30px 12px; 
-    background-color: #f9f9f9;
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
 }
 
 /* New color scheme for the charts */
@@ -244,4 +385,11 @@ a:hover, a:focus {
     background-color: transparent !important;
 }
 
-
+.dx-chart .dxc-series {
+    fill-opacity: 1 !important;
+    stroke-opacity: 1 !important;
+  }
+  
+  .dx-chart .dxc-area {
+    fill: none; /* Removes gradient fills, if any */
+  }

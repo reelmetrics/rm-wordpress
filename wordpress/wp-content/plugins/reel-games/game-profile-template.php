@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for displaying game profile based on the static UUID.
+ * Template for displaying game profile based on the dynamic URL. 
  */
 
 $game_data = fetch_reel_game_api_response();
@@ -15,217 +15,280 @@ if (!isset($game_data['title'])) {
     return;
 }
 
-// 1. Game Info & Metrics
-echo "<div class='reel-game-container'>";
-echo "<div class='main-flex-container'>";
-echo "<div class='game-info'>";
-echo "<h1 class='reel-game-title'>" . esc_html($game_data['title']) . "</h1>";
-echo "<p><strong>Suppliers: </strong>" . esc_html($game_data['supplier']) . "</p>";
-echo "<p><strong>Cost Model: </strong>" . esc_html($game_data['cost_model']) . "</p>";
-echo "</div>"; 
-echo "<div class='metrics-flex-container'>";
-$metrics_titles = ["TERMINALS", "VENUES", "MONTHS"];
-foreach ($metrics_titles as $index => $title) {
-    echo "<div class='metric-box'>";
-    echo "<h4>$title</h4>";
-    echo "<div class='metric-number'>" . esc_html($game_data['stats_json'][$index][0]['value']) . "</div>";
-    $skip_first = true;
-    echo "<ul>";
-    foreach ($game_data['stats_json'][$index] as $metric) {
-        if ($skip_first) {
-            $skip_first = false;
-            continue;
-        }
-        echo "<li class='metric-list-item'><strong>" . esc_html($metric['key']) . ": </strong>" . esc_html($metric['value']) . "</li>";
-    }
-    echo "</ul>";
+//page container
+echo "<div class='reel-game-page-container'>";
+
+    echo "<div class='alert alert-warning alert-dismissible fade show m-5' role='alert'>";
+        echo "This is a limited preview of the full Game Profile page of <b>" . esc_html($game_data['title']) . "</b> by <i>" . esc_html($game_data['supplier']) ."</i>.";
     echo "</div>";
-}
-echo "<hr class='mt-4 mb-5'>";
-echo "</div>"; // Close the metrics-flex-container
-echo "</div>"; // Close the main-flex-container
-
-// Game Image and Performance Profile
-
-// echo "<div class='container'>";
-// echo "<div class='row'>";
-// echo "<div class='col-md-5'>";
-// echo "<h5>Game Image</h5>";
-// echo "</div>";
-// echo "<div class='col-md-7 mt-5'>";
-// echo "<table class='table table-bordered'>";
-// echo "<thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody>";
-// foreach ($game_data['performance_profile_json'] as $measure => $value) {
-//     echo "<tr><td>" . esc_html($measure) . "</td><td>" . esc_html($value) . "</td></tr>";
-// }
-// echo "</tbody></table>";
-// echo "</div>";
-// echo "</div>";
-// echo "</div>";
-echo "</div>"; // Close the reel-game-container
 
 
-    // 2. Performance Profile
-    echo "<div class='performance-profile-container'>"; 
-
-    echo "<div id='performanceAccordion'>";
-    
-    echo "<div class='card'>";
-    // Accordion title for Performance Profile
-    echo "<div class='card-header d-flex justify-content-between align-items-center' id='headingPerformanceProfile'>";
-    echo "<h4 class='mb-0'>2. Performance Profile</h4>";
-    echo "<button class='btn btn-link chevron-button' data-toggle='collapse' data-target='#collapsePerformanceProfile' aria-expanded='true' aria-controls='collapsePerformanceProfile' id='chevron-button-performanceprofile'>";
-    echo "<span class='chevron'><i class='fa fa-chevron-down'></i></span>"; 
-    echo "</button>";
-    echo "</div>";
-    
-            // Accordion content for Performance Profile
-            echo "<div id='collapsePerformanceProfile' class='collapse show' aria-labelledby='headingPerformanceProfile' data-parent='#performanceAccordion'>";
-                echo "<div class='card-body'>";
-    
-                    // Key Metrics Overview
-                    echo "<div class='metrics-overview'>";
-                    echo "<h4>Key Metrics</h4>";
-                    echo "<table class='table'>";
-                    echo "<thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody>";
-                    foreach ($game_data['performance_profile_json'] as $measure => $value) {
-                        echo "<tr><td>" . esc_html($measure) . "</td><td>" . esc_html($value) . "</td></tr>";
+    // 1. Game Info & Metrics
+    echo "<div class='reel-game-container'>";
+        echo "<div class='main-flex-container'>";
+            echo "<div class='game-info'>";
+                echo "<h1 class='reel-game-title'>" . esc_html($game_data['title']) . "</h1>";
+                echo "<ul><li><strong>Supplier: </strong>" . esc_html($game_data['supplier']) . "</li>";
+                echo "<li><strong>Cost Model: </strong>" . esc_html($game_data['cost_model']) . "</ul>";
+            echo "</div>"; 
+                echo "<div class='metrics-flex-container'>";
+                    $metrics_titles = ["TERMINALS", "VENUES", "MONTHS"];
+                    foreach ($metrics_titles as $index => $title) {
+                        echo "<div class='metric-box'>";
+                        echo "<h6>$title</h6>";
+                        echo "<div class='metric-number'>" . esc_html($game_data['stats_json'][$index][0]['value']) . "</div>";
+                        $skip_first = true;
+                        echo "<table>";
+                        foreach ($game_data['stats_json'][$index] as $metric) {
+                            if ($skip_first) {
+                                $skip_first = false;
+                                continue;
+                            }
+                                // Check if the key is 'Retired' and the value is 0, then skip this iteration
+                                if ($metric['key'] === 'Retired') {
+                                    continue;
+                                }
+                            echo "<tr>";
+                            echo "<td class='metric-table-cell'><strong>" . esc_html($metric['key']) . ":</strong></td>";
+                            echo "<td class='metric-table-cell metric-cell-value'>" . esc_html($metric['value']) . "</td>";
+                            echo "</tr>";
+                        }
+                        echo "</table>";
+                        
+                        echo "</div>";
                     }
-                    echo "</tbody></table>";
+                    echo "<hr class='mt-4 mb-5'>";
+                echo "</div>"; // Close the metrics-flex-container
+        echo "</div>"; // Close the main-flex-container
+
+        // Game Image and Performance Profile
+
+        // echo "<div class='container'>";
+        // echo "<div class='row'>";
+        // echo "<div class='col-md-5'>";
+        // echo "<h5>Game Image</h5>";
+        // echo "</div>";
+        // echo "<div class='col-md-7 mt-5'>";
+        // echo "<table class='table table-bordered'>";
+        // echo "<thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody>";
+        // foreach ($game_data['performance_profile_json'] as $measure => $value) {
+        //     echo "<tr><td>" . esc_html($measure) . "</td><td>" . esc_html($value) . "</td></tr>";
+        // }
+        // echo "</tbody></table>";
+        // echo "</div>";
+        // echo "</div>";
+        // echo "</div>";
+    echo "</div>"; // Close the reel-game-container
+
+    echo "<div class='reel-locked-container'>";
+        echo "<div class='locked-card-header'>";
+            echo "<h4 class='locked-card-title'>Configuration Details <i class='fa fa-lock lock-icon'></i></h4>";
+            echo "<a href='https://reelmetrics.com' target='_blank'><button class='btn orange-btn'>Learn More  <i class='fa fa-external-link'></i></button></a>"; 
+        echo "</div>";
+    echo "</div>";
+
+    echo "<div class='reel-locked-container'>";
+        echo "<div class='locked-card-header'>";
+            echo "<h4 class='locked-card-title'>Player Data <i class='fa fa-lock lock-icon'></i></h4>";   
+            echo "<a href='https://reelmetrics.com' target='_blank'><button class='btn blue-btn'>Learn More  <i class='fa fa-external-link'></i></button></a>"; 
+        echo "</div>";
+    echo "</div>";
+
+
+
+
+
+// start of tesst code
+$accordionGroupId = "accordionGroup";
+
+$internal_overview_url = plugins_url( 'assets/img/internal_overview.png', __FILE__);
+$pricing_url = plugins_url( 'assets/img/pricing.png', __FILE__);
+$average_bet_url = plugins_url( 'assets/img/average_bet.png', __FILE__);
+$conversions_url = plugins_url( 'assets/img/conversions.png', __FILE__);
+$loco_url = plugins_url( 'assets/img/loco.png', __FILE__);
+
+
+// Vertical Box Row
+    echo "<div class='vertical-chart-container mt-3'>";
+        echo "<div class='chart-container'>";
+
+        echo "<div class='chart-box chart-box-locked' data-toggle='collapse' data-target='#collapseContactCTA' aria-expanded='false' aria-controls='collapseContactCTA'>";
+        echo "<div class='popup-card-header'>";
+            echo "<h4 class='locked-card-title-small-box'> Internal Overview </h4> ";
+        echo "</div>";
+        echo "<div class='popup-card-body'>";
+            echo "<div class='backdrop-image' style='background-image: url(" . esc_url( $internal_overview_url ) . ");'>";
+                echo "<button type='button' class='center-btn' data-toggle='collapse' data-target='#popup1'>Click to Learn More</button>";
+            echo "</div>"; // Close backdrop-image div
+        echo "</div>";  // Close the popup-card-body
+    echo "</div>"; // Close the first chart-box
+    
+        // Contact Box for CTA
+        echo "<div class='chart-box chart-box-locked' data-toggle='collapse' data-target='#collapseContactCTA' aria-expanded='false' aria-controls='collapseContactCTA'>";
+            echo "<div class='popup-card-header'>";
+                echo "<h4 class='locked-card-title-small-box'>Pricing Analysis</h4>";
+            echo "</div>";
+            echo "<div class='popup-card-body'>";
+            echo "<div class='backdrop-image' style='background-image: url(" . esc_url( $pricing_url ) . ");'>";
+                echo "<button type='button' class='center-btn' data-toggle='collapse' data-target='#popup1'>Click to Learn More</button>";
+            echo "</div>"; // Close backdrop-image div
+        echo "</div>";  // Close the popup-card-body
+    echo "</div>"; // Close the first chart-box
+
+
+            //Time Series Box
+            echo "<div class='chart-box' data-toggle='collapse' data-target='#collapseGamePerformance' aria-expanded='false' aria-controls='collapseGamePerformance'>";
+                echo "<h4 class='popup-card-title'>Time Series Analysis</h4>";
+                echo "<div id='timeSeriesChartPreview'></div>";
+            echo "</div>";
+
+            //Performance Profile Box
+            echo "<div class='chart-box' data-toggle='collapse' data-target='#collapsePerformanceProfile' aria-expanded='false' aria-controls='collapsePerformanceProfile'>";
+                echo "<div class='performance-profile-header'>";
+                    echo "<h4 class='popup-card-title'>Performance Profile</h4>";
+                            echo "<div class='metrics-overview'>";
+                                echo "<table class='table'>";
+                                    echo "<thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody>";
+                                    foreach ($game_data['performance_profile_json'] as $measure => $value) {
+                                        echo "<tr><td>" . esc_html($measure) . "</td><td>" . esc_html($value) . "</td></tr>";
+                                    }
+                                echo "</tbody></table>";
+                            echo "</div>";
+                            echo "<span class='chevron'><i class='fa fa-chevron-down'></i></span>";
+                echo "</div>"; // Close the box
+            echo "</div>"; // Close the Performance Profile Box
+
+        echo "</div>"; // Close the chart-container
+    echo "</div>"; // Close the vertical-chart-container
+
+
+    // PopUp content for Performance Profile
+    echo "<div id='{$accordionGroupId}' class='accordion'>";
+        echo "<div class='popUpBox'>";
+            echo "<div id='collapsePerformanceProfile' class='collapse' aria-labelledby='headingPerformanceProfile' data-parent='#{$accordionGroupId}'>";
+                echo "<div class='card-body'>";
+                
+                        echo "<h4>Key Metrics</h4>";
+                        echo "<table class='table'>";
+                            echo "<thead><tr><th>Measure</th><th>Value</th></tr></thead><tbody>";
+                            foreach ($game_data['performance_profile_json'] as $measure => $value) {
+                                echo "<tr><td>" . esc_html($measure) . "</td><td>" . esc_html($value) . "</td></tr>";
+                            }
+                        echo "</tbody></table>";
+
+                        echo "<div class='vertical-chart-box'>";
+                        echo "<h5>Games Played & Theo Win Blend Percentile</h5>";
+                        echo "<div id='gamesPlayedTheoWinBlendPercentile'></div>"; 
                     echo "</div>";
-    
-                    // Note: Additional charts or visualizations can be added here
-    
-                echo "</div>"; // Close the card-body for Performance Profile
-            echo "</div>"; // Close the Accordion content for Performance Profile
-        echo "</div>"; // Close the card for Performance Profile
-    
-    echo "</div>"; // Close the performanceAccordion
-    
-    echo "</div>"; // Close the performance-profile-container
+
+                    echo "<div class='vertical-chart-box'>";
+                        echo "<h5>Theo Win Percentile</h5>";
+                        echo "<div id='theoWinPercentile'></div>";
+                    echo "</div>";
+                    
+                    echo "<div class='vertical-chart-box'>";
+                        echo "<h5>Games Played Percentile</h5>";
+                        echo "<div id='gamesPlayedPercentile'></div>";
+                    echo "</div>";
+                    
+                echo "</div>"; // Close the card-body 
+            echo "</div>"; // Collapse
+        echo "</div>"; // Close the performance-profile-container
+    echo "</div>"; // Close the accordion
+
+    // PopUp content for TimeSeriesAnalysis
+    echo "<div id='{$accordionGroupId}' class='accordion'>";
+        echo "<div class='popUpBox'>";
+            echo "<div id='collapseGamePerformance' class='collapse' aria-labelledby='headingGamePerformance' data-parent='#{$accordionGroupId}'>";
+                echo "<div class='card-body'>";
+                    echo "<h4>Time Series Analysis</h4>";
+                    echo "<p>The Time Series Analysis shows performance (Blended Games Played Theo Win vs Floor Average) over time.</p>";
+
+
+                    // TimeSeries Chart
+                    echo "<div class='vertical-chart-box'>";
+                        echo "<div id='timeSeriesChart'></div>"; //Performance over Time
+                    echo "</div>";
+
+                    echo "<div class='vertical-chart-box'>";
+                        echo "<h5>Terminals</h5>";
+                        echo "<div id='terminalsBarChart'></div>"; //terminaals
+                    echo "</div>";
+
+                    echo "<div class='vertical-chart-box'>";
+                        echo "<h5>Market Share</h5>";
+                        echo "<div id='marketShareBarChart'></div>";  //market share
+                    echo "</div>";
+                    
+                    echo "<div class='vertical-chart-box'>";
+                        echo "<h5>Venues</h5>";
+                        echo "<div id='venuesBarChart'></div>";  //venues 
+                    echo "</div>";
+
+                echo "</div>"; // Close the card-body
+            echo "</div>"; // Close the Accordion content
+        echo "</div>"; // Close the chart-container
+    echo "</div>"; // Close the accordion
+
+    // PopUp content for Contact CTA
+    echo "<div id='{$accordionGroupId}' class='accordion'>";
+        echo "<div class='popUpBox'>";
+            echo "<div id='collapseContactCTA' class='collapse' aria-labelledby='headingContactCTA' data-parent='#{$accordionGroupId}'>";
+                echo "<div class='card-body'>";
+                    echo "<h4>Premium Feature</h4>";
+                    echo "<p>Like what you've seen so far? Then you're going to LOVE what's waiting for you inside.";
+
+                    echo "<p>
+                    ReelMetrics subscriptions provide you with unfettered access to the world's largest slot repository and our full suite of groundbreaking advisory apps. Affordably priced and packed with value, ReelMetrics subscriptions deliver robust returns on annual subscription fees, a claim that you can verify with existing ReelMetrics Subscribers.
+                    </p>";
+
+                    echo "<p> To learn more about ReelMetrics subscriptions, <a href='mailto:info@reelmetrics.com'> give us a yodel</a> and learn how our Big Data solutions help you take the guesswork out of game work.</p>";
+                    echo "<button type='button' class='btn btn-secondary' data-toggle='collapse' data-target='#collapseContactCTA' aria-expanded='false' aria-controls='collapseContactCTA'>Close</button>";
+                echo "</div>"; // Close the card-body
+            echo "</div>"; // Close the Accordion content
+        echo "</div>"; // Close the chart-container
+    echo "</div>"; // Close the accordion
 
 
 
-// 3. Performance  over Time
-echo "<div class='vertical-chart-container'>"; 
+    // Vertical Box Row
+    echo "<div class='vertical-chart-container mt-5'>";
+        echo "<div class='chart-container'>";
 
-echo "<div id='accordion'>";
-
-echo "<div class='card'>";
-// Accordion title
-echo "<div class='card-header d-flex justify-content-between align-items-center' id='headingGamePerformance'>";
-echo "<h4 class='mb-0'>3. Performance Over Time </h4>"; 
-echo "<button class='btn btn-link chevron-button' data-toggle='collapse' data-target='#collapseGamePerformance' aria-expanded='true' aria-controls='collapseGamePerformance' id='chevron-button-gameperformance'>";
-echo "<span class='chevron'><i class='fa fa-chevron-down'></i></span>"; 
-echo "</button>";
-echo "</div>";
-
-        // Accordion content
-        echo "<div id='collapseGamePerformance' class='collapse show' aria-labelledby='headingGamePerformance' data-parent='#accordion'>";
-            echo "<div class='card-body'>";
-
-                // TimeSeries Chart
-                echo "<div class='vertical-chart-box'>";
-                    echo "<div id='timeSeriesChart'></div>"; //Performance over Time
+            echo "<div class='chart-box chart-box-locked' data-toggle='collapse' data-target='#collapseContactCTA' aria-expanded='false' aria-controls='collapseContactCTA'>";
+                echo "<div class='popup-card-header'>";
+                    echo "<h4 class='locked-card-title-small-box'>Locational Analysis</h4>";
                 echo "</div>";
+                echo "<div class='popup-card-body'>";
+                    echo "<div class='backdrop-image' style='background-image: url(" . esc_url( $loco_url ) . ");'>";
+                        echo "<button type='button' class='center-btn' data-toggle='collapse' data-target='#popup1'>Click to Learn More</button>";
+                    echo "</div>"; // Close backdrop-image div
+                echo "</div>";  // Close the popup-card-body
+            echo "</div>"; // Close the first chart-box
 
-                echo "<div class='vertical-chart-box'>";
-                    echo "<div id='adoptionOverTimeChart'></div>"; // Adoption Over Time
+            echo "<div class='chart-box chart-box-locked' data-toggle='collapse' data-target='#collapseContactCTA' aria-expanded='false' aria-controls='collapseContactCTA'>";
+                echo "<div class='popup-card-header'>";
+                    echo "<h4 class='locked-card-title-small-box'>Game Conversions</h4>"; 
                 echo "</div>";
+                echo "<div class='popup-card-body'>";
+                    echo "<div class='backdrop-image' style='background-image: url(" . esc_url( $conversions_url ) . ");'>";
+                        echo "<button type='button' class='center-btn' data-toggle='collapse' data-target='#popup1'>Click to Learn More</button>";
+                    echo "</div>"; // Close backdrop-image div
+                echo "</div>";  // Close the popup-card-body
+            echo "</div>"; // Close the second chart-box
 
-                echo "<div class='vertical-chart-box'>";
-                    echo "<div id='revenueInsightsChart'></div>"; // Revenue Insights
+            echo "<div class='chart-box chart-box-locked' data-toggle='collapse' data-target='#collapseContactCTA' aria-expanded='false' aria-controls='collapseContactCTA'>";
+                echo "<div class='popup-card-header'>";
+                    echo "<h4 class='locked-card-title-small-box'>Average Bet</h4>"; 
                 echo "</div>";
+                echo "<div class='popup-card-body'>";
+                    echo "<div class='backdrop-image' style='background-image: url(" . esc_url( $average_bet_url ) . ");'>";
+                        echo "<button type='button' class='center-btn' data-toggle='collapse' data-target='#popup1'>Click to Learn More</button>";
+                    echo "</div>"; // Close backdrop-image div
+                echo "</div>";  // Close the popup-card-body
+            echo "</div>"; // Close the third chart-box
 
-            echo "</div>"; // Close the card-body
-        echo "</div>"; // Close the Accordion content
-    echo "</div>"; // Close the card
+        echo "</div>"; // Close the chart-container
+    echo "</div>"; // Close the vertical-chart-container
 
-echo "</div>"; // Close the accordion
-
-
-echo "</div>"; // Close the chart-container
-
- 
-
-// 4. Market Presence
-echo "<div class='vertical-chart-container'>"; 
-    echo "<div class='card'>";
-        echo "<div class='card-header d-flex justify-content-between align-items-center' id='headingMarketPresence'>";
-            echo "<h4 class='mb-0'>4. Market Presence</h4>";   
-            echo "<button class='btn btn-link chevron-button' data-toggle='collapse' data-target='#collapseMarketPresence' aria-expanded='true' aria-controls='collapseMarketPresence' id='chevron-button-marketpresence'>";
-            echo "<span class='chevron'><i class='fa fa-chevron-down'></i></span>";  
-            echo "</button>";
-        echo "</div>";
-        echo "<div id='collapseMarketPresence' class='collapse' aria-labelledby='headingMarketPresence' data-parent='#accordion'>";
-            echo "<div class='card-body'>";
-                echo "<div class='vertical-chart-box'>";
-                    echo "<div id='marketShareParetoChart'></div>"; // Market Share
-                echo "</div>";
-                echo "<div class='vertical-chart-box'>";
-                    echo "<div id='terminalsParetoChart'></div>"; // 6. Terminal Distribution & Status
-                echo "</div>";
-                echo "<div class='vertical-chart-box'>";
-                    echo "<div id='venuesParetoChart'></div>"; //7. Venue Distribution & Analysis
-                echo "</div>";
-            echo "</div>";
-        echo "</div>";
-        echo "</div>";
-    echo "</div>";
-echo "</div>";
-
-// 5. Dive Deeper
-echo "<div class='vertical-chart-container mb-5'>"; 
-    echo "<div class='card'>";
-        echo "<div class='card-header d-flex justify-content-between align-items-center' id='headingPeerComparison'>";
-            echo "<h4 class='mb-0'>5. Dive Deeper</h4>";   
-            echo "<button class='btn btn-link chevron-button' data-toggle='collapse' data-target='#collapsePeerComparison' aria-expanded='true' aria-controls='collapsePeerComparison' id='chevron-button-peercomparison'>";
-            echo "<span class='chevron'><i class='fa fa-chevron-down'></i></span>";  
-            echo "</button>";
-        echo "</div>";
-        echo "<div id='collapsePeerComparison' class='collapse' aria-labelledby='headingPeerComparison' data-parent='#accordion'>";
-            echo "<div class='card-body'>";
-                echo "<div class='vertical-chart-box'>";
-                    echo "<div>Sign Up</div>";
-                echo "</div>";
-            echo "</div>";
-        echo "</div>";
-    echo "</div>";
-echo "</div>";
-
-echo "<div class='largeMargin'>";
-echo "<h3 class='m-5'>Below is for Testing Purposes Only</h3>";
-echo "</div>";
-
-
-
-// Begin Container for Further Analysis and Testing charts
-echo "<div class='vertical-chart-container mt-5'>";
-echo "<div class='chart-container'>";
-
-
-// Game Performance
-echo "<div class='chart-box'>";
-echo "<div id='monthlyPerformanceChart'></div>";
-echo "</div>";
-
-// Quartile RPM (quartileAnalysisChart)
-echo "<div class='chart-box'>";
-echo "<div id='quartileAnalysisChart'></div>";
-echo "</div>";
-
-//RandomChart
-echo "<div class='chart-box'>";
-echo "<div id='testChart'></div>";
-echo "</div>";
-
-
-// End Container for Further Analysis and Testing charts
-echo "</div>";
-echo "</div>";
-
-// Full container - Lifecycle Analysis DataGrid
-echo "<div class='reel-game-container'>";
-echo "<h3>Lifecycle Analysis</h3>";
-echo "<div id='dataGridContainer'></div>";
-echo "</div>";
+echo "</div>"; // Close the reel-game-page-container

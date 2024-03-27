@@ -25,8 +25,7 @@ function enqueue_reel_games_assets() {
     wp_enqueue_style('devextreme-light', 'https://cdn3.devexpress.com/jslib/23.1.4/css/dx.light.css', array(), '23.1.4');
     wp_enqueue_script('devextreme-all', 'https://cdn3.devexpress.com/jslib/23.1.4/js/dx.all.js', array('jquery'), '23.1.4', true);
 
-
-    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css', array(), '6.4.2');
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.4.2');
     
     // Enqueue plugin specific styles and scripts
     wp_enqueue_style('reel-games', plugins_url('assets/css/reel-games.css', __FILE__), array(), '1.0.0', 'all');
@@ -50,6 +49,25 @@ function debug_api_response() {
     }
 }
 add_action('init', 'debug_api_response');
+
+add_action('wp_ajax_fetch_game_data', 'fetch_reel_game_api_response');
+add_action('wp_ajax_nopriv_fetch_game_data', 'fetch_reel_game_api_response');
+
+// Add rewrite rules for custom game URLs
+function reel_games_rewrite_rule() {
+    add_rewrite_rule('^games/([^/]*)/?', 'index.php?pagename=games&uuid=$matches[1]', 'top');
+}
+add_action('init', 'reel_games_rewrite_rule');
+
+
+// Add custom query vars for UUID and name
+function reel_games_query_vars($vars) {
+    $vars[] = 'uuid';
+    $vars[] = 'title';
+    return $vars;
+}
+
+add_filter('query_vars', 'reel_games_query_vars');
 
 
 ?>
